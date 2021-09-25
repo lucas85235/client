@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 94.9vh;
+  height: 900px;
   border: 1px solid red;
 }
 
@@ -16,6 +16,23 @@
   border: 1px solid white;
 }
 
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  border: 1px solid white;
+}
+
+.list {
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 900px;
+  border: 1px solid red;
+}
+
 .item {
   display: flex;
   justify-content: space-around;
@@ -25,4 +42,11 @@
   height: 200px;
   border: 1px solid blue;
   font-size: 1.2rem;
+  margin: 10px;
+}
+
+.nft {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

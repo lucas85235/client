@@ -17,7 +17,9 @@ export default function ConnectFunction(props) {
             console.log("amount: " + value)
             if (value != undefined) {
                 setAccount(value)
-                props.onConnect()
+                if (props.onConnect) {
+                    props.onConnect()
+                }
             }
         })
     })
@@ -35,7 +37,9 @@ export default function ConnectFunction(props) {
             window.web3 = new Web3(window.ethereum);
             setAccount(accounts[0])
             console.log(accounts[0])
-            props.onConnect()
+            if (props.onConnect) {
+                props.onConnect()
+            }
             return true;
         }
         return false;
