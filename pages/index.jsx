@@ -1,58 +1,33 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import ConnectFunction from '../functions/ConnectFunction';
+import { Token } from '../functions/Contract';
 import styles from '../styles/Home.module.css'
 
 const Web3 = require("web3");
 
 export default function Home() {
+  
+  const [supply, setSupply] = useState(0)
 
-  // if accounts != null is logged
-  // else make login in metamask
+  async function totalSupply() {
 
-  const [accounts, setAccounts] = useState(undefined)
-
-  useEffect(() => {
-    if (accounts != undefined) {
-      console.log("Já esta conectado!")
-      return
-    }
-
-    getAccount().then( value => {
-      console.log(value)
-      if (value != undefined) {
-        setAccounts(value)
-      }
+    Token.methods.totalSupply().call().then(function(v) {
+      var form = v / 1000000000000000000
+      setSupply(form)
+      console.log(form)
     })
-  })
 
-  const ethEnabled = async () => {
-
-    if (accounts != undefined) {
-      console.log("Meta mask já esta conectado!")
-      return
-    }
-
-    if (window.ethereum) {
-
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      window.web3 = new Web3(window.ethereum);
-      setAccounts(accounts[0])
-      console.log(accounts[0])
-      return true;
-    }
-    return false;
   }
-
-  async function getAccount() {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    return account
-  }
-
+  
   return (
-    <div className={styles.container}>
-      <button onClick={() => ethEnabled()}>Conectar Metamask</button>
-      <div>
-        Status: <span>{accounts}</span>
+    <div>
+      <ConnectFunction onConnect={() => totalSupply()}></ConnectFunction>
+      <div className={styles.container}>
+        <div className={styles.item}>
+          <span>Total de Moedas</span>
+          <span>{supply}</span>
+          <button onClick={() => totalSupply()}>Atualizar</button>  
+        </div>
       </div>
     </div>
   )
